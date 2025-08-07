@@ -1,0 +1,22 @@
+name: Python Tests
+
+on: [push, pull request]
+
+jobs:
+  test:
+    name: Python tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: action/setup-python@4
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -mpip install -update pip
+          pip install -r requirements.txt
+
+      - name : Run tests
+        run: |
+          pytest ./tests
