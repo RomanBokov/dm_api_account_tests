@@ -4,13 +4,16 @@ import requests
 class MailhogApi:
     def __init__(
             self,
-            host,
-            heders=None
+            host
             ):
         self.host = host
-        self.heders = heders
 
-    def get_api_v2_messages(self, limit=50):
+
+    def get_api_v2_messages(
+            self,
+            limit=50,
+            **kwargs
+            ):
         '''
         Get user emails
         :return:

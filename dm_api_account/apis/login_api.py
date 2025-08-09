@@ -12,7 +12,8 @@ class LoginApi:
 
     def post_v1_account_login(
             self,
-            json_data
+            json_data,
+            **kwargs
             ):
         '''
 
