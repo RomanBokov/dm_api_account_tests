@@ -165,33 +165,27 @@ def get_activation_token_by_login(
             token = user_data['ConfirmationLinkUrl'].split('/')[-1]
     return token
 
-def get_activation_token_by_new_email(
-        emailnew,
-        response
-        ):
+def get_activation_token_by_email(email, response):
     token = []
-    if 'items' not in response.json():
+    if not response.json().get("items"):
         return None
-    for item in response.json()['items']:
-        # Проверяем поле To (может быть списком получателей)
-        if 'To' in item:
-            for recipient in item['To']:
-                search_mail = f'{recipient.get('Mailbox')}@{recipient.get('Domain')}'
-                if isinstance(recipient, dict) and search_mail == emailnew:
-                    # Если нашли нужного получателя, извлекаем ссылку
-                    if 'Content' in item and 'Body' in item['Content']:
-                        try:
-                            body_data = json.loads(item['Content']['Body'])
-                            if 'ConfirmationLinkUrl' in body_data:
-                                token.append(
-                                    {
-                                        'mailbox': emailnew,
-                                        'confirmation_link': body_data['ConfirmationLinkUrl'],
-                                        'message_id': item.get('ID'),
-                                        'created': item.get('Created')
-                                        }
-                                    )
-                        except json.JSONDecodeError:
-                            continue
-    return token if token else None
+
+    for item in response.json()["items"]:
+        try:
+            for recipient in item["To"]:
+                search_mail = f"{recipient['Mailbox']}@{recipient['Domain']}"
+                if search_mail == email:
+                    body_data = json.loads(item["Content"]["Body"])
+                    token.append(
+                        {
+                            "mailbox": email,
+                            "confirmation_link": body_data["ConfirmationLinkUrl"],
+                            "message_id": item.get("ID"),
+                            "created": item.get("Created"),
+                        }
+                    )
+        except KeyError:
+            continue
+
+    return token
 
