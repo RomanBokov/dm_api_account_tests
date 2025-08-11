@@ -118,7 +118,7 @@ def test_put_v1_account_email():
 
     # ищем на почте новый токен
 
-    token2 = get_activation_token_by_new_email(emailnew, response)
+    token2 = get_activation_newtoken_by_email(emailnew, response)
     print(token2)
     assert token2 is not None, "Токен для пользователя логин не был получен"
     assert token != token2, "Токен не изменен"
@@ -165,7 +165,7 @@ def get_activation_token_by_login(
             token = user_data['ConfirmationLinkUrl'].split('/')[-1]
     return token
 
-def get_activation_token_by_email(email, response):
+def get_activation_newtoken_by_email(email, response):
     token = []
     if not response.json().get("items"):
         return None

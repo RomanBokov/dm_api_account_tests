@@ -37,9 +37,9 @@ def test_put_v1_account_token():
     account_api = AccountApi(configuration=dm_api_configuration)
     login_api = LoginApi(configuration=dm_api_configuration)
     mailhog_api = MailhogApi(configuration=mailhog_configuration)
-    login = 'User90' + f'{random.randint(1, 999)}'
-    password = 'password1'
-    email = f'Mail{random.randint(1, 999)}' + '@mail.ru'
+    login = 'user90' + f'{uuid.uuid4()}'
+    password = 'password'
+    email = f'{uuid.uuid4()}' + '@mail.ru'
     json_data = {
         'login': login,
         'email': email,
