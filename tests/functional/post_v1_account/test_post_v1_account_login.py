@@ -40,10 +40,10 @@ def test_post_v1_account():
     mailhog = MailHogApi(configuration=mailhog_configuration)
 
     account_helper = AccountHelper(dm_account_api=account, mailhog= mailhog)
-
-    login = 'user90' + f'{uuid.uuid4()}'
+    uuid_new = uuid.uuid4()
+    login = 'user90' + f'{uuid_new}'
     password = 'password'
-    email = f'{uuid.uuid4()}' + '@mail.ru'
+    email = f'{uuid_new}' + '@mail.ru'
     account_helper.register_new_user(login=login, password= password, email= email)
     account_helper.user_login(login=login, password=password)
 
