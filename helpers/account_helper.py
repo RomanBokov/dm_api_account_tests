@@ -30,6 +30,7 @@ def retrier(
             if token:
                 return token
             time.sleep(1)
+        return token
     return wraper
 
 
