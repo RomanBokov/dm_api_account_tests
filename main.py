@@ -35,4 +35,4 @@ response = requests.put(
 print(response.status_code)
 pprint(response.json())
 response_json =response.json()
-print(response_json['resource']['rating']['enabled'])
+# print(response_json['resource']['rating']['enabled'])
