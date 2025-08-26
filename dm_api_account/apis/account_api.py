@@ -6,7 +6,6 @@ from restclient.client import RestClient
 
 class AccountApi(RestClient):
 
-
     def post_v1_account(
             self,
             json_data,
@@ -23,6 +22,20 @@ class AccountApi(RestClient):
             )
         return response
 
+    def get_v1_account(
+            self,
+            **kwargs
+            ):
+        """
+        Get current user
+        :return:
+        """
+        response = self.get(
+            path=f'/v1/account',
+            **kwargs
+            )
+        return response
+
     def put_v1_account_token(
             self,
             token,
@@ -32,11 +45,14 @@ class AccountApi(RestClient):
         Activate registered user
         """
         response = self.put(
-            path=f'/v1/account/{token}')
+            path=f'/v1/account/{token}'
+            )
         return response
 
-    def put_v1_account_email(self,
-                             json_data):
+    def put_v1_account_email(
+            self,
+            json_data
+            ):
         """
         PUT
         Change registered user email
@@ -46,6 +62,45 @@ class AccountApi(RestClient):
         """
         response = self.put(
             path=f'/v1/account/email',
-            json=json_data,headers=self.headers
+            json=json_data
             )
-        return  response
+        return response
+
+    def post_v1_account_password(
+            self,
+            json_data,
+            **kwargs
+            ):
+        """
+        POST
+        Reset registered user password
+        :param json_data
+        :param kwargs:
+        :return:
+        """
+        response = self.post(
+            path=f'/v1/account/password',
+            json=json_data
+            )
+        return response
+
+    def put_v1_account_password(
+            self,
+            json_data,
+            headers,
+            **kwargs
+            ):
+        """
+        PUT
+        Change registered user password
+        :param json_data
+        :param kwargs:
+        :return:
+        """
+        pass
+        response = self.put(
+            path=f'/v1/account/password',
+            json = json_data,
+            headers=headers
+            )
+        return response

@@ -8,29 +8,52 @@ from services.dm_api_account import DMApiAccount
 from services.api_mailhog import MailHogApi
 import structlog
 
-
 structlog.configure(
     processors=[
-        structlog.processors.JSONRenderer(indent=4,
-                                          ensure_ascii=True,
-                                          sort_keys=True)
+        structlog.processors.JSONRenderer(
+            indent=4,
+            ensure_ascii=True,
+            sort_keys=True
+            )
         ]
     )
-@pytest.fixture
+
+
+@pytest.fixture(scope="session")
 def mailhog_api():
     mailhog_configuration = MailhogConfiguration(host='http://5.63.153.31:5025')
     mailhog_client = MailHogApi(configuration=mailhog_configuration)
     return mailhog_client
 
-@pytest.fixture
+
+@pytest.fixture(scope="session")
 def account_api():
     dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051')
     account = DMApiAccount(configuration=dm_api_configuration)
     return account
-@pytest.fixture
-def account_helper(account_api, mailhog_api):
-    account_helper = AccountHelper(dm_account_api=account_api, mailhog= mailhog_api)
+
+
+@pytest.fixture(scope="session")
+def account_helper(
+        account_api,
+        mailhog_api
+        ):
+    account_helper = AccountHelper(dm_account_api=account_api, mailhog=mailhog_api)
     return account_helper
+
+
+@pytest.fixture(scope="session")
+def auth_account_helper(mailhog_api):
+    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
+    account = DMApiAccount(configuration=dm_api_configuration)
+    account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog_api)
+    account_helper.auth_client(
+        login = 'user90f2abcc9e-2d7a-4bd0-b607-275fd71385e4',
+        password = 'password'
+        )
+    return account_helper
+
+
 @pytest.fixture
 def prepare_user():
     now = datetime.now()

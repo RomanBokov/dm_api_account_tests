@@ -11,9 +11,7 @@
 
 - Меняем емейл
 '''
-import json
 import uuid
-from json import loads
 
 from helpers.account_helper import AccountHelper
 from services.dm_api_account import DMApiAccount
@@ -36,8 +34,6 @@ structlog.configure(
 
 def test_put_v1_account_email():
 
-    # Регистрация пользователя
-    # Регистрация пользователя
     mailhog_configuration = MailhogConfiguration(host='http://5.63.153.31:5025')
     dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051')
 
@@ -51,12 +47,8 @@ def test_put_v1_account_email():
     email = f'{uuid_new}' + '@mail.ru'
     account_helper.register_new_user(login=login, password=password, email=email)
     account_helper.user_login(login=login, password=password)
-
     # Меняем зарегистрируемую почту пользователя
     emailnew = f"new{email}"
-
     account_helper.chang_email(emailnew=emailnew, login=login, password= password)
-
-
     # Авторизоваться
     account_helper.user_login(login=login, password=password)

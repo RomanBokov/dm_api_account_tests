@@ -18,7 +18,7 @@ from pprint import pprint
 
 import requests
 
-url = 'http://5.63.153.31:5051/v1/account/8eda16c5-cb11-4399-9efc-6d96d4096cc6'
+url = 'http://5.63.153.31:5051/v1/account/1c3cff01-a38c-4c68-8e0e-c52f1e378188'
 headers = {
     'accept': 'text/plain'
 
@@ -35,4 +35,4 @@ response = requests.put(
 print(response.status_code)
 pprint(response.json())
 response_json =response.json()
-print(response_json['resource']['rating']['enabled'])
+# print(response_json['resource']['rating']['enabled'])
