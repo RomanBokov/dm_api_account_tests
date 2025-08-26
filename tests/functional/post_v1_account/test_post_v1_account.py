@@ -1,6 +1,4 @@
 import uuid
-from  json import loads
-
 from helpers.account_helper import AccountHelper
 from restclient.configuration import Configuration as MailhogConfiguration
 from restclient.configuration import Configuration as DmApiConfiguration

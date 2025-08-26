@@ -1,8 +1,6 @@
 import json
 import time
 from json import loads
-from time import sleep
-
 from services.dm_api_account import DMApiAccount
 from services.api_mailhog import MailHogApi
 from retrying import retry
