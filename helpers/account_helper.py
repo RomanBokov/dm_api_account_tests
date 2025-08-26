@@ -31,7 +31,6 @@ def retrier(
                 raise AssertionError("Превышено количество попыток получения активационного токена!")
             if token:
                 return token
-            time.sleep(1)
         return token
     return wraper
 
@@ -162,9 +161,8 @@ class AccountHelper:
             "email": email
             }
         self.dm_account_api.account_api.post_v1_account_password(json_data=json_data2)
-        time.sleep(1)
 
-        token2 = self.get_activation_token_by_login(login=login)
+        token2 = self.get_activation_token_by_login(login=login,token_type="token2")
         json_data = {
             "login": login,
             "token": token2,
@@ -179,7 +177,8 @@ class AccountHelper:
     @retry(stop_max_attempt_number=5, retry_on_result=retry_if_result_none, wait_fixed=1000)
     def get_activation_token_by_login(
             self,
-            login
+            login,
+            token_type: str = 'activation'
             ):
         token = None
         response = self.mailhog.mailhog_api.get_api_v2_messages()
@@ -187,12 +186,13 @@ class AccountHelper:
             user_data = loads(item['Content']['Body'])
             user_login = user_data['Login']
             if user_login == login:
-                # Проверяем оба поля по очереди
-                for field_name in ['ConfirmationLinkUrl', 'ConfirmationLinkUri']:
-                    confirmation_link = user_data.get(field_name)
-                    if confirmation_link:
-                        token = confirmation_link.split('/')[-1]
-                        break
+                field_name = 'ConfirmationLinkUrl'
+                if token_type != 'activation':
+                    field_name = 'ConfirmationLinkUri'
+                confirmation_link = user_data.get(field_name)
+                if confirmation_link:
+                    token = confirmation_link.split('/')[-1]
+                    break
                 if token:
                     break  # Прерываем внешний цикл
 
