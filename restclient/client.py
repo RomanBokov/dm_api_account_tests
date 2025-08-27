@@ -15,10 +15,15 @@ class RestClient:
             configuration: Configuration
             ):
         self.host = configuration.host
-        self.headers = configuration.headers
+        self.set_headers(configuration.headers)
         self.disable_log = configuration.disable_log
         self.session = session()
         self.log = structlog.get_logger(__name__).bind(service='api')
+
+
+    def set_headers(self, headers):
+        if headers:
+            self.session.headers.update(headers)
 
     def post(
             self,
@@ -74,7 +79,7 @@ class RestClient:
         log.msg(
             event='Response',
             status_code=rest_response.status_code,
-            hraders=rest_response.headers,
+            headers=rest_response.headers,
             # json=rest_response.json() if rest_response.content else None
             json=self._get_json(rest_response)
             )
