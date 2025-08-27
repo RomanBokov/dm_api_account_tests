@@ -55,7 +55,6 @@ class AccountHelper:
                 'password': password
                 }
             )
-        pass
         token = {
             "x-dm-auth-token": resource.headers["x-dm-auth-token"]
             }
