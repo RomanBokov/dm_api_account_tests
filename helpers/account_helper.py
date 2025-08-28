@@ -92,7 +92,10 @@ class AccountHelper:
         # Получить письмаиз почтового сервера
 
         # Получить активный токен
+        start_time =time.time()
         token = self.get_activation_token_by_login(login=login)
+        end_time = time.time()
+        assert end_time - start_time <3 , "Время активации превышено"
         assert token is not None, "Токен для пользователя логин не был получен"
         # Активация пользователя
 
