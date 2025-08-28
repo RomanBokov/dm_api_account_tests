@@ -49,11 +49,8 @@ class AccountHelper:
             login: str,
             password: str
             ):
-        resource = self.dm_account_api.login_api.post_v1_account_login(
-            json_data={
-                'login': login,
-                'password': password
-                }
+        resource = self.user_login(login=login,
+                                   password=password
             )
         token = {
             "x-dm-auth-token": resource.headers["x-dm-auth-token"]
@@ -118,6 +115,7 @@ class AccountHelper:
             }
         response = self.dm_account_api.login_api.post_v1_account_login(json_data=json_data)
         registration_str = response.json()["resource"]["registration"]
+        assert response.headers["x-dm-auth-token"], "Токен пользователя не был получен"
         assert isinstance(registration_str, str)
         return response
 
