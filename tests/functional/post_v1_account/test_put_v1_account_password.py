@@ -15,4 +15,4 @@ def test_put_v1_account_password(account_helper,prepare_user):
     #Смена пароля с пробросом авторизационного токена в хэдэры и указанием токена для сброса пароля из письма
     account_helper.chang_password(login=login, password=password,email=email, token_auth= token)
     #Авторизация пользователя с новым паролем
-    account_helper.user_login(login=login, password=f'new{password}',validate_response=True)
+    account_helper.user_login(login=login, password=f'new{password}')

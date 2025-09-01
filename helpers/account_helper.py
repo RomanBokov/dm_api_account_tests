@@ -74,11 +74,14 @@ class AccountHelper:
             ):
         registration = Registration(
             login=login,
-            email=email,
-            password=password
+            password=password,
+            email=email
             )
-
-        self.dm_account_api.account_api.post_v1_account(registration=registration)
+        response = self.dm_account_api.account_api.post_v1_account(registration=registration)
+        assert response.status_code == 201, f"Пользователь не был создан {response.json()}"
+        token = self.get_activation_token_by_login(login=login)
+        response = self.dm_account_api.account_api.put_v1_account_token(token=token)
+        return response
 
 
     def register_new_user(
@@ -105,7 +108,7 @@ class AccountHelper:
         assert token is not None, "Токен для пользователя логин не был получен"
         # Активация пользователя
 
-        response = self.dm_account_api.account_api.put_v1_account_token(token=token)
+        self.dm_account_api.account_api.put_v1_account_token(token=token)
         #assert response.status_code == 200, "Пользователь не был активирован"
         return token
 
@@ -114,23 +117,21 @@ class AccountHelper:
             login: str,
             password: str,
             remember_me: bool = True,
-            validate_response=False
+            validate_response=False,
+            validate_headers=False
             ):
-        # Авторизоваться
-
         login_credentials = LoginCredentials(
             login=login,
             password=password,
-            remember_me=remember_me
+            remember_me = remember_me
             )
         response = self.dm_account_api.login_api.post_v1_account_login(
             login_credentials=login_credentials,
             validate_response=validate_response
             )
-        # if validate_response:
-        #     registration_str = response.json()["resource"]["registration"]
-        #     assert response.headers["x-dm-auth-token"], "Токен пользователя не был получен"
-        #     assert isinstance(registration_str, str)
+        if validate_headers:
+            assert response.headers['x-dm-auth-token'], "Токен для пользователя не был получен"
+            assert response.status_code == 200, "Пользователь не смог авторизироваться"
         return response
 
     def chang_email(
