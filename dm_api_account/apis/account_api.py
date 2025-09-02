@@ -1,6 +1,9 @@
-import requests
+from dm_api_account.models.Request.change_password import ChangePassword
+from dm_api_account.models.Request.registration import Registration
+from dm_api_account.models.Request.reset_password import ResetPassword
+from dm_api_account.models.Response.user_details_envelope import UserDetailsEnvelope
+from dm_api_account.models.Response.user_envelope import UserEnvelope
 
-from main import headers
 from restclient.client import RestClient
 
 
@@ -8,7 +11,7 @@ class AccountApi(RestClient):
 
     def post_v1_account(
             self,
-            json_data,
+            registration: Registration,
             **kwargs
             ):
         """
@@ -18,12 +21,15 @@ class AccountApi(RestClient):
         """
         response = self.post(
             path=f'/v1/account',
-            json=json_data
+            json=registration.model_dump(exclude_none=True, by_alias=True)
+            # exclude_none=True - если поле является не обязательным мы не будем его пепедавать
+            # by_alias заполение модели будет идти через дополнительное слово указанное отдельно
             )
         return response
 
     def get_v1_account(
             self,
+            validate_response=True,
             **kwargs
             ):
         """
@@ -34,11 +40,14 @@ class AccountApi(RestClient):
             path=f'/v1/account',
             **kwargs
             )
+        if validate_response:
+            return UserDetailsEnvelope(**response.json())
         return response
 
     def put_v1_account_token(
             self,
             token,
+            validate_response=True,
             **kwargs
             ):
         """
@@ -47,11 +56,14 @@ class AccountApi(RestClient):
         response = self.put(
             path=f'/v1/account/{token}'
             )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     def put_v1_account_email(
             self,
-            json_data
+            registration: Registration,
+            validate_response = True
             ):
         """
         PUT
@@ -62,13 +74,16 @@ class AccountApi(RestClient):
         """
         response = self.put(
             path=f'/v1/account/email',
-            json=json_data
+            json=registration.model_dump(exclude_none=True, by_alias=True)
             )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     def post_v1_account_password(
             self,
-            json_data,
+            reset_password : ResetPassword,
+            validate_response=True,
             **kwargs
             ):
         """
@@ -80,14 +95,17 @@ class AccountApi(RestClient):
         """
         response = self.post(
             path=f'/v1/account/password',
-            json=json_data
+            json=reset_password.model_dump(exclude_none=True, by_alias=True)
             )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     def put_v1_account_password(
             self,
-            json_data,
+            change_password : ChangePassword,
             headers,
+            validate_response = True,
             **kwargs
             ):
         """
@@ -100,7 +118,9 @@ class AccountApi(RestClient):
         pass
         response = self.put(
             path=f'/v1/account/password',
-            json = json_data,
+            json = change_password.model_dump(exclude_none=True, by_alias=True),
             headers=headers
             )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response

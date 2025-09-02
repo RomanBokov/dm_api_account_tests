@@ -1,33 +1,13 @@
-import uuid
 
-from helpers.account_helper import AccountHelper
-from services.dm_api_account import DMApiAccount
-from services.api_mailhog import MailHogApi
+def test_put_v1_account_email(account_helper, prepare_user):
+    login = prepare_user.login
+    password = prepare_user.password
+    email = prepare_user.email
+    emailnew = f"new{prepare_user.email}"
 
-from restclient.configuration import Configuration as MailhogConfiguration
-from restclient.configuration import Configuration as DmApiConfiguration
-import structlog
-
-structlog.configure(
-    processors=[
-        structlog.processors.JSONRenderer(
-            indent=4,
-            ensure_ascii=True,
-            sort_keys=True
-            )
-        ]
-    )
-
-
-def test_put_v1_account_email(account_helper):
-    uuid_new = uuid.uuid4()
-    login = 'user90' + f'{uuid_new}'
-    password = 'password'
-    email = f'{uuid_new}' + '@mail.ru'
     account_helper.register_new_user(login=login, password=password, email=email)
     account_helper.user_login(login=login, password=password)
     # Меняем зарегистрируемую почту пользователя
-    emailnew = f"new{email}"
     account_helper.chang_email(emailnew=emailnew, login=login, password= password)
     # Авторизоваться
     account_helper.user_login(login=login, password=password)
