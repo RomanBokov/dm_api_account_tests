@@ -1,14 +1,4 @@
-from datetime import datetime
-
-from hamcrest import (
-    assert_that,
-    has_property,
-    starts_with,
-    all_of,
-    instance_of,
-    equal_to,
-    has_properties,
-    )
+from checkers.post_v1_account import PostV1Account
 
 
 ### для словаря используется has_key . a для объекта has_property, starts_with - проверяем начало по регулярке
@@ -25,24 +15,9 @@ def test_post_v1_account(
     email = prepare_user.email
     account_helper.create_new_user(login=login, password=password, email=email)
     response = account_helper.user_login(login=login, password=password, validate_response=True)
-    print(response)
-    assert_that(response, all_of(
-        has_property('resource',has_property('login', starts_with('user90'))),
-        has_property('resource',has_property('registration', instance_of(datetime))),
-        has_property(
-            'resource',has_properties(
-                         {
-                             "rating": has_properties(
-                                {
-                                    "enabled": equal_to(True),
-                                    "quality": equal_to(0),
-                                    "quantity": equal_to(0)
-                                }
-                            )
-                        }
-                         )
-                     )
-        )
-                )
+    PostV1Account.check_response_values(response)
+
+
+
 
 

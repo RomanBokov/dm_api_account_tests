@@ -17,31 +17,31 @@ from assertpy import  assert_that as assert_that_assertpy,soft_assertions
 
 def test_get_v1_account(auth_account_helper):
     response = auth_account_helper.dm_account_api.account_api.get_v1_account()
-    # assert_that(
-    #     response, all_of(
-    #         has_property('resource', has_property('login', starts_with('user90'))),
-    #         has_property(
-    #             'resource', has_properties(
-    #                 {
-    #                     "roles": contains_inanyorder(UserRole.GUEST, UserRole.PLAYER)
-    #                     }
-    #                 )
-    #             ),
-    #         # Проверка что роли содержат ожидаемые строковые значения
-    #         has_property(
-    #             'resource', has_property(
-    #                 'roles',
-    #                 has_item(has_property('value', 'Guest'))
-    #                 )
-    #             ),
-    #         has_property(
-    #             'resource', has_property(
-    #                 'roles',
-    #                 has_item(has_property('value', 'Player'))
-    #                 )
-    #             )
-    #         )
-    #     )
+    assert_that(
+        response, all_of(
+            has_property('resource', has_property('login', starts_with('user90'))),
+            has_property(
+                'resource', has_properties(
+                    {
+                        "roles": contains_inanyorder(UserRole.GUEST, UserRole.PLAYER)
+                        }
+                    )
+                ),
+            # Проверка что роли содержат ожидаемые строковые значения
+            has_property(
+                'resource', has_property(
+                    'roles',
+                    has_item(has_property('value', 'Guest'))
+                    )
+                ),
+            has_property(
+                'resource', has_property(
+                    'roles',
+                    has_item(has_property('value', 'Player'))
+                    )
+                )
+            )
+        )
     with soft_assertions():
         assert_that_assertpy(response.resource.login).is_equal_to("user90f2abcc9e-2d7a-4bd0-b607-275fd71385e4")
         print("Прошла проверка логина")
