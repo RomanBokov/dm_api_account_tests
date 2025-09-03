@@ -1,17 +1,3 @@
-from datetime import datetime
-
-from hamcrest import (
-    assert_that,
-    all_of,
-    has_property,
-    instance_of,
-    has_properties,
-    contains_inanyorder,
-    starts_with,
-    equal_to,
-    has_item,
-    )
-
 from checkers.get_v1_account import GetV1Account
 
 

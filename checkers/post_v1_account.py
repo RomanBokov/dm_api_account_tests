@@ -2,7 +2,6 @@ from datetime import datetime
 
 from assertpy import assert_that
 from hamcrest import (
-    starts_with as hamcrest_starts_with,
     all_of,
     has_property,
     has_properties,
