@@ -19,7 +19,7 @@ def gen_random_string(length):
 
 
 @pytest.mark.parametrize("login, password, email, expected_status, expected_message", [
-    (f"{gen_random_string(2)}", "password", f'user90' + f'{gen_random_string(10)}' + "@mail.ru", 200, ""),  # короткий логин
+    (f"{gen_random_string(2)}", "password", f'user90' + f'{gen_random_string(10)}' + "@mail.ru", 400, "Validation failed"),  # короткий логин
     (f'user90' + f'{gen_random_string(10)}',gen_random_string(2), f'user90' + f'{gen_random_string(10)}' + "@mail.ru", 400,"Validation failed"),  # короткий пароль
     ("valid_login", "validPass123", "invalid-email", 400, "Validation failed"),  # невалидный email
     ("", "password", "valid@email.com", 400, "Validation failed"),  # пустой логин
