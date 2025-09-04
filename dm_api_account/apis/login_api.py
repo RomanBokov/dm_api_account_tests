@@ -1,3 +1,5 @@
+
+import allure
 from dm_api_account.models.request.login_credentials import LoginCredentials
 from dm_api_account.models.response.user_envelope import UserEnvelope
 from restclient.client import RestClient
@@ -19,6 +21,7 @@ class LoginApi(RestClient):
             return UserEnvelope(**response.json())
         return response
 
+    @allure.step("Выход из системы текущего пользователя")
     def delete_v1_account_login(
             self,
             headers,
@@ -34,6 +37,7 @@ class LoginApi(RestClient):
         #     return GeneralError(**response.json())
         return response
 
+    @allure.step("Разлогирование всех пользователей")
     def delete_v1_account_login_all(
             self,
             headers,

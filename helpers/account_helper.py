@@ -1,7 +1,7 @@
 import json
 import time
 from json import loads
-
+import allure
 from dm_api_account.models.request.change_password import ChangePassword
 from dm_api_account.models.request.login_credentials import LoginCredentials
 from dm_api_account.models.request.registration import Registration
@@ -50,6 +50,7 @@ class AccountHelper:
         self.dm_account_api = dm_account_api
         self.mailhog = mailhog
 
+    @allure.step("Авторизируемся")
     def auth_client(
             self,
             login: str,
@@ -66,6 +67,7 @@ class AccountHelper:
         self.dm_account_api.login_api.set_headers(token)
         return token
 
+    @allure.step("Регистрация нового пользователя")
     def create_new_user(
             self,
             login: str,
@@ -83,7 +85,7 @@ class AccountHelper:
         response = self.dm_account_api.account_api.put_v1_account_token(token=token)
         return response
 
-
+    @allure.step("Регистируем нового пользователя")
     def register_new_user(
             self,
             login: str,
@@ -112,6 +114,7 @@ class AccountHelper:
         #assert response.status_code == 200, "Пользователь не был активирован"
         return token
 
+    @allure.step("Аутентификация пользователя")
     def user_login(
             self,
             login: str,
@@ -133,6 +136,7 @@ class AccountHelper:
             assert response.headers['x-dm-auth-token'], "Токен для пользователя не был получен"
         return response
 
+    @allure.step("Меняем зарегистрируемую почту пользователя")
     def chang_email(
             self,
             emailnew: str,
@@ -147,8 +151,6 @@ class AccountHelper:
             password=password
             )
         self.dm_account_api.account_api.put_v1_account_email(registration=registration)
-
-
         # # Авторизоваться повторно под старыми данными
         response = self.mailhog.mailhog_api.get_api_v2_messages()
         assert response.status_code == 200, "Письма не были получены"
@@ -159,7 +161,7 @@ class AccountHelper:
         # Активация пользователя
         self.dm_account_api.account_api.put_v1_account_token(token=token2)
 
-
+    @allure.step("Меняем  пароль у пользователя")
     def chang_password(
             self,
             email: str,

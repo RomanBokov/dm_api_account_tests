@@ -1,28 +1,16 @@
-import uuid
 
-from helpers.account_helper import AccountHelper
-from services.dm_api_account import DMApiAccount
-from services.api_mailhog import MailHogApi
-
-from restclient.configuration import Configuration as MailhogConfiguration
-from restclient.configuration import Configuration as DmApiConfiguration
-import structlog
-
-structlog.configure(
-    processors=[
-        structlog.processors.JSONRenderer(indent=4,
-                                          ensure_ascii=True,
-                                          sort_keys=True)
-        ]
-    )
+import allure
 
 
-def test_put_v1_account_token(account_helper):
+@allure.suite("Тесты вктивации зарегистированного пользователя PUT v1/account/token")
+@allure.sub_suite("Позитивные тесты")
+class TestPutV1AccountToken:
 
-    # Регистрация пользователя
-    uuid_new = uuid.uuid4()
-    login = 'user90' + f'{uuid_new}'
-    password = 'password'
-    email = f'{uuid_new}' + '@mail.ru'
-    # актирировать зарегистрированного пользователя
-    account_helper.register_new_user(login=login, password=password, email=email)
+    @allure.title("Активация зарегистрированного пользователя")
+    def test_put_v1_account_token(self, account_helper, prepare_user):
+
+        login = prepare_user.login
+        password = prepare_user.password
+        email = prepare_user.email
+        # актирировать зарегистрированного пользователя
+        account_helper.register_new_user(login=login, password=password, email=email)

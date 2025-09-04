@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import datetime
-
 from enum import Enum
 from typing import List, Optional
 
@@ -27,12 +26,10 @@ class UserDetails(BaseModel):
     small_picture_url: str = Field(None, alias='smallPictureUrl')
     status: str = Field(None)
     rating: Rating
-
     online: datetime.datetime = Field(None)
     name: str = Field(None)
     location: str = Field(None)
     registration: datetime.datetime = Field(None)
-
     icq: str = Field(None)
     skype: str = Field(None)
     original_picture_url: str = Field(None, alias='originalPictureUrl')

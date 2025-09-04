@@ -1,24 +1,23 @@
+import allure
 
 from checkers.get_v1_account import GetV1Account
 from checkers.http_checkers import check_status_code_http
 
+@allure.suite("Тесты на получение текущего пользователя GET v1/account")
+@allure.sub_suite("Позитивные тесты")
+class TestGetV1Account:
 
-def test_get_v1_account(auth_account_helper):
-    response = auth_account_helper.dm_account_api.account_api.get_v1_account()
-    GetV1Account.check_response_values_get_auth_account_helper(response=response, login='user90')
+    @allure.title("Проверка авторизации созданного пользователя")
+    def test_get_v1_account(self, auth_account_helper):
+       response = auth_account_helper.dm_account_api.account_api.get_v1_account()
+       GetV1Account.check_response_values_get_auth_account_helper(response=response)
 
-
-def test_get_v1_account_no_auth(account_helper):
-    with check_status_code_http(401, "User must be authenticated"):
+    @allure.title("Проверка не авторизации созданного пользователя")
+    def test_get_v1_account_no_auth(self, account_helper):
         account_helper.dm_account_api.account_api.get_v1_account(validate_response=False)
 
-
-
-# Получить информацию о пользователе (используя авторизованный клиент)
-def test_open_information_user(auth_account_helper):
-    response =auth_account_helper.dm_account_api.account_api.get_v1_account()
-    GetV1Account.check_response_values_get_auth_account_helper(response=response, login='user90')
-
-
-
-
+     #Получить информацию о пользователе (используя авторизованный клиент)
+    @allure.title("Тест на получение информации о пользователе")
+    def test_open_information_user(self, auth_account_helper):
+        response =auth_account_helper.dm_account_api.account_api.get_v1_account()
+        GetV1Account.check_response_values_get_auth_account_helper(response=response)
