@@ -63,9 +63,10 @@ class RestClient:
         full_url = self.host + path
         if self.disable_log:
             rest_response = self.session.request(method=method, url=full_url, **kwargs)
+            rest_response.raise_for_status()
             return rest_response
         log.msg(
-            event='Request',
+            event='request',
             method=method,
             full_url=full_url,
             params=kwargs.get('params'),
@@ -77,12 +78,13 @@ class RestClient:
         curl = curlify.to_curl(rest_response.request)
         print(curl)
         log.msg(
-            event='Response',
+            event='response',
             status_code=rest_response.status_code,
             headers=rest_response.headers,
             # json=rest_response.json() if rest_response.content else None
             json=self._get_json(rest_response)
             )
+        rest_response.raise_for_status()
         return rest_response
 
     @staticmethod

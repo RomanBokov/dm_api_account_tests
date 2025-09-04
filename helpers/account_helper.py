@@ -2,10 +2,10 @@ import json
 import time
 from json import loads
 
-from dm_api_account.models.Request.change_password import ChangePassword
-from dm_api_account.models.Request.login_credentials import LoginCredentials
-from dm_api_account.models.Request.registration import Registration
-from dm_api_account.models.Request.reset_password import ResetPassword
+from dm_api_account.models.request.change_password import ChangePassword
+from dm_api_account.models.request.login_credentials import LoginCredentials
+from dm_api_account.models.request.registration import Registration
+from dm_api_account.models.request.reset_password import ResetPassword
 from services.dm_api_account import DMApiAccount
 from services.api_mailhog import MailHogApi
 from retrying import retry
@@ -131,7 +131,6 @@ class AccountHelper:
             )
         if validate_headers:
             assert response.headers['x-dm-auth-token'], "Токен для пользователя не был получен"
-            assert response.status_code == 200, "Пользователь не смог авторизироваться"
         return response
 
     def chang_email(
