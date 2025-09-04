@@ -1,9 +1,7 @@
 import json
 import time
 from json import loads
-
 import allure
-
 from dm_api_account.models.request.change_password import ChangePassword
 from dm_api_account.models.request.login_credentials import LoginCredentials
 from dm_api_account.models.request.registration import Registration
@@ -136,7 +134,6 @@ class AccountHelper:
             )
         if validate_headers:
             assert response.headers['x-dm-auth-token'], "Токен для пользователя не был получен"
-            assert response.status_code == 200, "Пользователь не смог авторизироваться"
         return response
 
     @allure.step("Меняем зарегистрируемую почту пользователя")

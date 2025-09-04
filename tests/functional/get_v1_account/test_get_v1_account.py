@@ -1,7 +1,7 @@
 import allure
 
 from checkers.get_v1_account import GetV1Account
-
+from checkers.http_checkers import check_status_code_http
 
 @allure.suite("Тесты на получение текущего пользователя GET v1/account")
 @allure.sub_suite("Позитивные тесты")
@@ -21,6 +21,3 @@ class TestGetV1Account:
     def test_open_information_user(self, auth_account_helper):
         response =auth_account_helper.dm_account_api.account_api.get_v1_account()
         GetV1Account.check_response_values_get_auth_account_helper(response=response)
-
-
-
