@@ -10,14 +10,16 @@ class TestGetV1Account:
     @allure.title("Проверка авторизации созданного пользователя")
     def test_get_v1_account(self, auth_account_helper):
        response = auth_account_helper.dm_account_api.account_api.get_v1_account()
-       GetV1Account.check_response_values_get_auth_account_helper(response=response)
+       GetV1Account.check_response_values_get_auth_account_helper(response=response, login='user90')
 
     @allure.title("Проверка не авторизации созданного пользователя")
     def test_get_v1_account_no_auth(self, account_helper):
-        account_helper.dm_account_api.account_api.get_v1_account(validate_response=False)
+        with check_status_code_http(401, 'User must be authenticated'):
+            account_helper.dm_account_api.account_api.get_v1_account(validate_response=False)
+
 
      #Получить информацию о пользователе (используя авторизованный клиент)
     @allure.title("Тест на получение информации о пользователе")
     def test_open_information_user(self, auth_account_helper):
         response =auth_account_helper.dm_account_api.account_api.get_v1_account()
-        GetV1Account.check_response_values_get_auth_account_helper(response=response)
+        GetV1Account.check_response_values_get_auth_account_helper(response=response, login='user90')

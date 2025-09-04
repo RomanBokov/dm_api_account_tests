@@ -51,6 +51,7 @@ class GetV1Account():
             print("Прошла проверка даты")
             assertpy.assert_that(response.resource.roles).contains(UserRole.GUEST, UserRole.PLAYER)
             print("Прошла проверка ролей пользователя")
+
     @classmethod
     def check_open_information_user(cls, response):
         assert_that(
