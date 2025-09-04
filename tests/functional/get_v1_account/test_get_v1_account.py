@@ -10,7 +10,7 @@ from hamcrest import (
     has_item,
     )
 from checkers.http_checkers import check_status_code_http
-from dm_api_account.models.Response.user_envelope import UserRole
+from dm_api_account.models.response.user_envelope import UserRole
 
 
 def test_get_v1_account(auth_account_helper):
