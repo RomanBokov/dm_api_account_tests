@@ -31,7 +31,6 @@ toml==0.10.2
 typing-inspection==0.4.1
 typing_extensions==4.15.0
 urllib3==2.5.0
-vyper==0.4.3
 vyper-config==1.2.1
 watchdog==6.0.0
 wheel==0.45.1
