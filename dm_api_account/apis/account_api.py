@@ -1,8 +1,8 @@
-from dm_api_account.models.Request.change_password import ChangePassword
-from dm_api_account.models.Request.registration import Registration
-from dm_api_account.models.Request.reset_password import ResetPassword
-from dm_api_account.models.Response.user_details_envelope import UserDetailsEnvelope
-from dm_api_account.models.Response.user_envelope import UserEnvelope
+from dm_api_account.models.request.change_password import ChangePassword
+from dm_api_account.models.request.registration import Registration
+from dm_api_account.models.request.reset_password import ResetPassword
+from dm_api_account.models.response.user_details_envelope import UserDetailsEnvelope
+from dm_api_account.models.response.user_envelope import UserEnvelope
 
 from restclient.client import RestClient
 

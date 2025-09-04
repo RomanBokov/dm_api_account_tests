@@ -12,7 +12,7 @@ from hamcrest import (
     equal_to,
     )
 
-from dm_api_account.models.Response.user_envelope import UserRole
+from dm_api_account.models.response.user_envelope import UserRole
 
 
 class GetV1Account():
