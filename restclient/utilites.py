@@ -2,26 +2,19 @@ import json
 from functools import wraps
 
 import allure
-import curlify
+from curlify2 import Curlify
+
+from main import response_json
 
 
 def allure_attach(
-        func
+        fn
         ):
-    @wraps(func)
     def wrapper(
             *args,
             **kwargs
             ):
-        body = kwargs.get("json") or kwargs.get("data")
-        response = func(*args, **kwargs)
-        try:
-            if hasattr(response, 'request'):
-                curl = curlify.to_curl(response.request)
-                allure.attach(curl, name="curl", attachment_type=allure.attachment_type.TEXT)
-        except:
-            pass
-
+        body = kwargs.get("json")
         if body:
             allure.attach(
                 json.dumps(body, indent=4),
@@ -29,23 +22,25 @@ def allure_attach(
                 attachment_type=allure.attachment_type.JSON,
                 )
 
+        response = fn(*args, **kwargs)
+        curl = Curlify(response.request).to_curl()
+        allure.attach(curl, name='curl', attachment_type=allure.attachment_type.TEXT)
+
         try:
-            if hasattr(response, 'json'):
-                response_json = response.json()
-                allure.attach(
-                    json.dumps(response_json, indent=4),
-                    name="response_body",
-                    attachment_type=allure.attachment_type.JSON,
-                    )
+            response_json = response.json()
         except json.JSONDecodeError:
-            if hasattr(response, 'text'):
                 response_text = response.text
+                status_code = f'status code = {response.status_code}'
                 allure.attach(
-                    response_text if response_text else f"Status: {response.status_code}",
-                    name="response_body",
+                    response_text if len(response_text) > 0 else status_code, name='request_body',
                     attachment_type=allure.attachment_type.TEXT
                     )
-
+        else:
+            allure.attach(
+                json.dumps(body, indent=4),
+                name="request_body",
+                attachment_type=allure.attachment_type.JSON,
+                )
         return response
 
     return wrapper

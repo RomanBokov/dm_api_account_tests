@@ -4,10 +4,10 @@ from json import loads
 
 import allure
 
-from dm_api_account.models.Request.change_password import ChangePassword
-from dm_api_account.models.Request.login_credentials import LoginCredentials
-from dm_api_account.models.Request.registration import Registration
-from dm_api_account.models.Request.reset_password import ResetPassword
+from dm_api_account.models.request.change_password import ChangePassword
+from dm_api_account.models.request.login_credentials import LoginCredentials
+from dm_api_account.models.request.registration import Registration
+from dm_api_account.models.request.reset_password import ResetPassword
 from services.dm_api_account import DMApiAccount
 from services.api_mailhog import MailHogApi
 from retrying import retry

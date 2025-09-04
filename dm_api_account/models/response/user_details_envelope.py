@@ -10,7 +10,7 @@ from pydantic import (
     ConfigDict,
     )
 
-from dm_api_account.models.Response.user_envelope import UserRole
+from dm_api_account.models.response.user_envelope import UserRole
 
 class UserDetailsEnvelope(BaseModel):
     model_config = ConfigDict(extra="forbid")

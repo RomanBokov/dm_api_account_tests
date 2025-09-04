@@ -1,7 +1,7 @@
 import allure
 
-from dm_api_account.models.Request.login_credentials import LoginCredentials
-from dm_api_account.models.Response.user_envelope import UserEnvelope
+from dm_api_account.models.request.login_credentials import LoginCredentials
+from dm_api_account.models.response.user_envelope import UserEnvelope
 from restclient.client import RestClient
 
 
