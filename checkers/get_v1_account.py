@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from assertpy import soft_assertions, assert_that as assert_that_assertpy
+import assertpy
 from hamcrest import (
     assert_that,
     all_of,
@@ -18,10 +18,10 @@ from dm_api_account.models.Response.user_envelope import UserRole
 class GetV1Account():
 
     @classmethod
-    def check_response_values_get_auth_account_helper(cls, response):
+    def check_response_values_get_auth_account_helper(cls, response, login):
         assert_that(
             response, all_of(
-                has_property('resource', has_property('login', starts_with('user90'))),
+                has_property('resource', has_property('login', starts_with(login))),
                 has_property(
                     'resource', has_properties(
                         {
@@ -44,12 +44,12 @@ class GetV1Account():
                     )
                 )
             )
-        with soft_assertions():
-            assert_that_assertpy(response.resource.login).is_equal_to("user90f2abcc9e-2d7a-4bd0-b607-275fd71385e4")
+        with assertpy.soft_assertions():
+            assertpy.assert_that(response.resource.login).is_equal_to("user90f2abcc9e-2d7a-4bd0-b607-275fd71385e4")
             print("Прошла проверка логина")
-            assert_that_assertpy(response.resource.registration).is_instance_of(datetime)
+            assertpy.assert_that(response.resource.registration).is_instance_of(datetime)
             print("Прошла проверка даты")
-            assert_that_assertpy(response.resource.roles).contains(UserRole.GUEST, UserRole.PLAYER)
+            assertpy.assert_that(response.resource.roles).contains(UserRole.GUEST, UserRole.PLAYER)
             print("Прошла проверка ролей пользователя")
     @classmethod
     def check_open_information_user(cls, response):
