@@ -58,7 +58,7 @@ jobs:
           uses: actions/download-artifact@v4
         - name: Upload allure report
           uses: actions/upload-pages-artifact@v3
-        - name: Deploy to SitHub Pages
+        - name: Deploy to GitHub Pages
           id: deployment
           uses: actions/deploy-pages@v3
 
