@@ -1,5 +1,5 @@
 from dm_api_account.apis.login_api import LoginApi
-from restclient.configuration import Configuration
+from packages.restclient.configuration import Configuration
 from dm_api_account.apis.account_api import AccountApi
 
 

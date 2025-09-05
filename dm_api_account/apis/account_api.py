@@ -4,7 +4,7 @@ from dm_api_account.models.request.reset_password import ResetPassword
 from dm_api_account.models.response.user_details_envelope import UserDetailsEnvelope
 from dm_api_account.models.response.user_envelope import UserEnvelope
 
-from restclient.client import RestClient
+from packages.restclient.client import RestClient
 
 
 class AccountApi(RestClient):

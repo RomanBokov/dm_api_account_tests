@@ -1,5 +1,5 @@
 from api_mailhog.apis.mailhog_api import MailhogApi
-from restclient.configuration import Configuration
+from packages.restclient.client import Configuration
 
 
 class MailHogApi:

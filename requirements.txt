@@ -25,7 +25,9 @@ pydantic==2.11.7
 pydantic_core==2.33.2
 Pygments==2.19.2
 PyHamcrest==2.1.0
+pyTelegramBotAPI==4.29.1
 pytest==8.4.1
+pytest-telegram-notifier==1.4.0
 python-dotenv==1.1.1
 PyYAML==6.0.2
 requests==2.32.4
@@ -35,6 +37,7 @@ setuptools==80.9.0
 six==1.17.0
 structlog==25.4.0
 swagger-coverage @ https://github.com/RomanBokov/swagger-coverage-py/archive/refs/heads/master.zip#sha256=82f2756f247b2ca17deda972316418659f8f048656edcc1bfe37443345d47740
+telebot==0.0.5
 toml==0.10.2
 typing-inspection==0.4.1
 typing_extensions==4.15.0

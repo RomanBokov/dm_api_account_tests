@@ -4,3 +4,7 @@ service:
 user:
   login: "user90f2abcc9e-2d7a-4bd0-b607-275fd71385e4"
   password: "password"
+
+telegram:
+  chat_id: "-1002878112899"
+  token: "7578384238:AAEse1IZjUuK7Giy8P70PZ8h8_g9aIQXrJU"
