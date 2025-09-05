@@ -24,7 +24,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest ./tests --alluredir=../allure-results --disable-warnings
+          pytest ./tests --alluredir=./allure-results --disable-warnings
         continue-on-error: true
 
       - name: Archive allure results
@@ -67,4 +67,5 @@ jobs:
         - name: Deploy to GitHub Pages
           id: deployment
           uses: actions/deploy-pages@v4
+        - run: echo "https://romanbokov.github.io/dm_api_account_tests/"
 
