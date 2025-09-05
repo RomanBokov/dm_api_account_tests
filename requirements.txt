@@ -11,10 +11,13 @@ curlify==3.0.0
 curlify2==2.0.0
 distconfig3==1.0.1
 docker==7.1.0
+environs==14.3.0
+Faker==37.6.0
 idna==3.10
 immutables==0.21
 iniconfig==2.1.0
 lark==1.2.2
+marshmallow==4.0.1
 packaging==25.0
 pluggy==1.6.0
 pycryptodome==3.23.0
@@ -23,13 +26,19 @@ pydantic_core==2.33.2
 Pygments==2.19.2
 PyHamcrest==2.1.0
 pytest==8.4.1
+python-dotenv==1.1.1
 PyYAML==6.0.2
 requests==2.32.4
 retrying==1.4.2
+rootpath==0.1.0
+setuptools==80.9.0
+six==1.17.0
 structlog==25.4.0
+swagger-coverage @ https://github.com/RomanBokov/swagger-coverage-py/archive/refs/heads/master.zip#sha256=82f2756f247b2ca17deda972316418659f8f048656edcc1bfe37443345d47740
 toml==0.10.2
 typing-inspection==0.4.1
 typing_extensions==4.15.0
+tzdata==2025.2
 urllib3==2.5.0
 vyper-config==1.2.1
 watchdog==6.0.0
