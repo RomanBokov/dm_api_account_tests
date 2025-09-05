@@ -23,7 +23,7 @@ jobs:
         continue-on-error: true
 
       - name: Archive allure results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results
@@ -40,7 +40,7 @@ jobs:
           java-version: '17'
       - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.35.1/allure-2.35.1.tgz && sudo tar -xvzf allure-2.35.1.tgz -C /opt/ && sudo -s /opt/allure-2.35.1/bin/allure /usr/bin/allure
       - name: Download allure results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
       - run: allure generate -c allure-results -o _site
       - name: Store report
         uses: actions/upload-artifact@v3
@@ -55,10 +55,10 @@ jobs:
       name: Publish report
       steps:
         - name: Download allure results
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
         - name: Upload allure report
-          uses: actions/upload-pages-artifact@v2
+          uses: actions/upload-pages-artifact@v3
         - name: Deploy to SitHub Pages
           id: deployment
-          uses: actions/deploy-pages@v2
+          uses: actions/deploy-pages@v3
 
