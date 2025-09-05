@@ -37,7 +37,7 @@ def allure_attach(
                     )
         else:
             allure.attach(
-                json.dumps(body, indent=4),
+                json.dumps(response_json, indent=4),
                 name="request_body",
                 attachment_type=allure.attachment_type.JSON,
                 )
