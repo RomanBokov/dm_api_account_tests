@@ -22,7 +22,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'odopt'
+          distribution: 'temurin'
+          java-package: jdk
 
       - name: Set JAVA_HOME
         run: echo "JAVA_HOME=$(dirname $(redlink -f $(which java))))" >> $GITHUB_ENV
