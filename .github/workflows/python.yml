@@ -38,6 +38,14 @@ jobs:
           pytest ./tests --alluredir=allure-results --disable-warnings
         continue-on-error: true
 
+      - name: Generate Swagger Coverage Report
+        run: |
+          swagger-coverage -s swagger-coverage-config-dm-api-account.json -i coverage/ -o swagger-coverage-dm-api-account.html
+
+      - name: Run Coverage Notification
+        if: always()
+        run: python -m packages.notifier.bot
+
       - name: Run Coverage
         if: always()
         run:
