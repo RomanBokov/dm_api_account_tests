@@ -38,6 +38,16 @@ jobs:
           pytest ./tests --alluredir=allure-results --disable-warnings
         continue-on-error: true
 
+      - name: Check if report exists
+        run: |
+          ls -la
+          if [ -f "swagger-coverage-dm-api-account.html" ]; then
+            echo "✅ Report found"
+          else
+            echo "❌ Report not found"
+            exit 1
+          fi
+
       - name: Run Coverage
         if: always()
         run:
