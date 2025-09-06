@@ -21,8 +21,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
+          distribution: 'microsoft'
           java-version: '17'
-          distribution: 'temurin'
           java-package: jdk
 
       - name: Debug Java environment
@@ -33,7 +33,7 @@ jobs:
           echo "Java version:"
           java -version
           echo "Java compiler:"
-          javac -versi
+          javac -version
           
 
       - name: Set JAVA_HOME
