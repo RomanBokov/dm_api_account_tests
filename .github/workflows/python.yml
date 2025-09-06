@@ -34,10 +34,7 @@ jobs:
           java -version
           echo "Java compiler:"
           javac -version
-          
 
-      - name: Set JAVA_HOME
-        run: echo "JAVA_HOME=$(dirname $(readlink -f $(which java)))" >> $GITHUB_ENV
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
