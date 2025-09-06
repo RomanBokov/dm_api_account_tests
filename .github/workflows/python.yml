@@ -25,6 +25,17 @@ jobs:
           distribution: 'temurin'
           java-package: jdk
 
+      - name: Debug Java environment
+        run: |
+          echo "JAVA_HOME: $JAVA_HOME"
+          echo "PATH: $PATH"
+          echo "Which java: $(which java)"
+          echo "Java version:"
+          java -version
+          echo "Java compiler:"
+          javac -versi
+          
+
       - name: Set JAVA_HOME
         run: echo "JAVA_HOME=$(dirname $(readlink -f $(which java)))" >> $GITHUB_ENV
       - name: Install dependencies
