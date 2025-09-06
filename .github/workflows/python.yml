@@ -35,10 +35,11 @@ jobs:
       - name: Run tests
         run: |
           export JAVA_HOME=$JAVA_HOME
-          pytest ./tests --alluredir=$(pwd)/allure-results --disable-warnings
+          pytest ./tests --alluredir=./allure-results --disable-warnings
         continue-on-error: true
+
       - name: Run Coverage
-        if: ${{always()}}
+        if: always()
         run:
           python -m packages.notifier.bot
 
