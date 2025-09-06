@@ -38,6 +38,27 @@ jobs:
           pytest ./tests --alluredir=allure-results --disable-warnings
         continue-on-error: true
 
+      - name: Find File with Bash
+        run: |
+          echo "🔍 Ищем файл swagger-coverage-dm-api-account.html"
+          find . -name "swagger-coverage-dm-api-account.html" -type f
+
+          echo ""
+          echo "📂 Ищем любые coverage файлы:"
+          find . -name "*coverage*" -type f | head -10
+
+          echo ""
+          echo "📂 Ищем HTML файлы:"
+          find . -name "*.html" -type f | head -10
+
+          echo ""
+          echo "📂 Текущая директория:"
+          pwd
+          ls -la
+
+
+
+
       - name: Archive allure results
         uses: actions/upload-artifact@v4
         with:
@@ -45,10 +66,23 @@ jobs:
           path: allure-results
           retention-days: 1
 
-      - name: Run Coverage
-        if: always()
-        run:
-          python -m packages.notifier.bot
+      - name: Find File with Bash
+        run: |
+          echo "🔍 Ищем файл swagger-coverage-dm-api-account.html"
+          find . -name "swagger-coverage-dm-api-account.html" -type f
+
+          echo ""
+          echo "📂 Ищем любые coverage файлы:"
+          find . -name "*coverage*" -type f | head -10
+
+          echo ""
+          echo "📂 Ищем HTML файлы:"
+          find . -name "*.html" -type f | head -10
+
+          echo ""
+          echo "📂 Текущая директория:"
+          pwd
+          ls -la
 
   generate-report:
     runs-on: ubuntu-latest
